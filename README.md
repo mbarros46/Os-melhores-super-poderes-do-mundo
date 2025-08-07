@@ -83,4 +83,4 @@ Você verá a lista dos superpoderes mais inúteis, ordenados pelo grau de inuti
 - Se precisar alterar o nome do serviço do banco no Docker Compose, ajuste também a URL no `application.properties`.
 
 ---
-Feito por [Seu Nome]
+Feito por [Miguel Barros]
