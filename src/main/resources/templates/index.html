@@ -1,19 +1,34 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EpicTask</title>
+    <title>Superpoderes Inúteis</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #eee; }
+    </style>
 </head>
 <body>
-
-<h1>Epic Task</h1>
-
-<ul>
-    <li th:each="task : ${tasks}" >
-        <span th:text="${task.title}"></span>
-        <span th:text="${task.score}"></span>
-    </li>
-</ul>
-
+    <h1>Superpoderes Mais Inúteis</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Grau de Inutilidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="power : ${powers}">
+                <td th:text="${power.name}"></td>
+                <td th:text="${power.description}"></td>
+                <td th:text="${power.uselessness}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

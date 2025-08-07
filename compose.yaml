@@ -1,10 +1,10 @@
 services:
   postgres:
     image: 'postgres:latest'
-    container_name: postgres_g
+    container_name: superpower
     environment:
-      - 'POSTGRES_DB=epictask'
-      - 'POSTGRES_PASSWORD=epictask'
-      - 'POSTGRES_USER=epictask'
+      - 'POSTGRES_DB=superpower'
+      - 'POSTGRES_PASSWORD=superpower'
+      - 'POSTGRES_USER=superpower'
     ports:
       - '5432:5432'
