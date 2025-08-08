@@ -82,5 +82,7 @@ Você verá a lista dos superpoderes mais inúteis, ordenados pelo grau de inuti
 - Os dados iniciais dos superpoderes estão no arquivo `V1__create_table_task.sql`.
 - Se precisar alterar o nome do serviço do banco no Docker Compose, ajuste também a URL no `application.properties`.
 
+
+.\gradlew bootRun -- para rodar
 ---
-Feito por [Miguel Barros]
+Feito por Miguel Barros

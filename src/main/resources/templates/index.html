@@ -1,34 +1,158 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Superpoderes Inúteis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os "Melhores" Superpoderes do Mundo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
-        h1 { color: #333; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-        th { background-color: #eee; }
+        :root {
+            --primary-color: #FFD700; /* Amarelo ouro para destaque */
+            --secondary-color: #9B59B6; /* Roxo para os cards */
+            --background-color: #1a1a2e; /* Azul noturno escuro */
+            --text-color: #EAEAEA;
+            --font-title: 'Bangers', cursive;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: radial-gradient(circle, #2c3e50 0%, var(--background-color) 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: var(--font-title);
+            font-size: 4.5rem;
+            color: var(--primary-color);
+            letter-spacing: 4px;
+            margin: 0;
+            text-shadow: 4px 4px 0px #000;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-top: -10px;
+            font-weight: 500;
+        }
+
+        .power-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .power-card {
+            background: var(--secondary-color);
+            border: 3px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .power-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .power-card h2 {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 0;
+            text-align: center;
+            letter-spacing: 2px;
+            border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+        }
+
+        .power-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1; /* Faz a descrição ocupar o espaço disponível */
+        }
+        
+        .inutility-meter {
+            width: 100%;
+        }
+
+        .inutility-meter label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .meter-bar-background {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 4px;
+        }
+
+        .meter-bar-level {
+            height: 20px;
+            background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); /* Deixei mais avermelhado para parecer mais 'perigoso' */
+            border-radius: 15px;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+            transition: width 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body>
-    <h1>Superpoderes Mais Inúteis</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Grau de Inutilidade</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="power : ${powers}">
-                <td th:text="${power.nome}"></td>
-                <td th:text="${power.descricao}"></td>
-                <td th:text="${power.nivelInutilidade}"></td>
-            </tr>
-        </tbody>
-    </table>
+
+    <div class="header">
+        <h1>Superpoderes Inúteis</h1>
+        <p>A galeria definitiva dos poderes que ninguém pediu.</p>
+    </div>
+    
+    <div class="power-grid">
+        <div class="power-card" th:each="power : ${powers}">
+            
+            <th:block th:with="inutilityScore = ${T(java.lang.Math).round(70 + (power.nivelInutilidade * 0.3))}">
+
+                <h2 th:text="${power.nome}">Nome do Poder</h2>
+                
+                <p th:text="${power.descricao}">
+                    Descrição super detalhada do quão inútil este poder consegue ser em qualquer situação imaginável ou não.
+                </p>
+
+                <div class="inutility-meter">
+                    <label>Grau de Inutilidade (Edição Catastrófica)</label>
+                    <div class="meter-bar-background">
+                        <div class="meter-bar-level" th:style="'width: ' + ${inutilityScore} + '%;'" th:text="${inutilityScore} + '%'">
+                            100%
+                        </div>
+                    </div>
+                </div>
+
+            </th:block>
+        </div>
+        </div>
+
 </body>
 </html>
